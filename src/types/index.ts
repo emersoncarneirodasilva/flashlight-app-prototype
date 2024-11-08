@@ -9,7 +9,7 @@ export interface ButtonProps {
 export interface IntensitySliderProps {
   intensity: number;
   onIntensityChange: (value: number) => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export interface DebugInfoProps {

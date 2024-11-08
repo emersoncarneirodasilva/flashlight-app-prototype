@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text } from "react-native";
 import { ButtonProps } from "../types";
-import { styles } from "../styles";
+import { useStyles } from "../hooks/useStyles";
 
 export const FlashlightButton: React.FC<ButtonProps> = ({
   onPress,
@@ -8,13 +8,17 @@ export const FlashlightButton: React.FC<ButtonProps> = ({
   backgroundColor,
   text,
   activeOpacity,
-}) => (
-  <TouchableOpacity
-    style={[styles.button, { backgroundColor }]}
-    onPress={onPress}
-    disabled={disabled}
-    activeOpacity={activeOpacity}
-  >
-    <Text style={styles.buttonText}>{text}</Text>
-  </TouchableOpacity>
-);
+}) => {
+  const styles = useStyles();
+
+  return (
+    <TouchableOpacity
+      style={[styles.button, { backgroundColor }]}
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={activeOpacity}
+    >
+      <Text style={styles.buttonText}>{text}</Text>
+    </TouchableOpacity>
+  );
+};

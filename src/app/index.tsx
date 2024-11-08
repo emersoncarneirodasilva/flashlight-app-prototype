@@ -1,23 +1,22 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { View, Text, Button } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { styles } from "../styles";
 import { useFlashlight } from "../hooks/useFlashlight";
 import { useAccelerometer } from "../hooks/useAccelerometer";
 import { FlashlightButton } from "../components/FlashlightButton";
-import { IntensitySlider } from "../components/IntensitySlider";
 import { DebugInfo } from "../components/DebugInfo";
+import { ShakeContext } from "../contexts/ShakeContext";
+import { useStyles } from "../hooks/useStyles";
 
 export default function App() {
-  const [isShake, setIsShake] = useState(true);
+  const styles = useStyles();
+  const { isShake } = useContext(ShakeContext)!;
   const [permission, requestPermission] = useCameraPermissions();
   const {
     flashOn,
     isStrobeOn,
     isSosOn,
-    intensity,
     setIsStrobeOn,
-    setIntensity,
     toggleFlash,
     playSosSignal,
   } = useFlashlight();
@@ -72,14 +71,6 @@ export default function App() {
               onPress={toggleFlash}
               disabled={isSosOn}
             />
-
-            {flashOn && (
-              <IntensitySlider
-                intensity={intensity}
-                onIntensityChange={setIntensity}
-                disabled={!flashOn}
-              />
-            )}
           </>
         )}
 
@@ -88,7 +79,6 @@ export default function App() {
             backgroundColor="#bebebe"
             text="S.O.S Ativado"
             onPress={() => {}}
-            disabled={isSosOn}
           />
         ) : (
           <FlashlightButton
@@ -106,12 +96,6 @@ export default function App() {
           text={isSosOn ? "Emitindo S.O.S..." : "Emitir Sinal S.O.S"}
           onPress={playSosSignal}
           disabled={isSosOn}
-        />
-
-        <FlashlightButton
-          backgroundColor={isShake ? "#a74dc2" : "#b93d81"}
-          text={isShake ? "Desativar Chacoalhar" : "Ativar Chacoalhar"}
-          onPress={() => setIsShake((prev) => !prev)}
         />
 
         <DebugInfo data={accelerometerData} />

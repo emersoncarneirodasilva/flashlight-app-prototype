@@ -1,19 +1,25 @@
+import { useContext } from "react";
 import { View, Text, Platform } from "react-native";
-import { styles } from "../styles";
+import { LanguageContext } from "../contexts/LanguagesContext";
 import { IntensitySliderProps } from "../types";
+import { useStyles } from "../hooks/useStyles";
 import Slider from "@react-native-community/slider";
 
 export const IntensitySlider: React.FC<IntensitySliderProps> = ({
   intensity,
   onIntensityChange,
-  disabled,
 }) => {
+  const { language } = useContext(LanguageContext)!;
+  const styles = useStyles();
+
   if (Platform.OS !== "android") return null;
 
   return (
     <View style={styles.sliderContainer}>
       <Text style={styles.sliderText}>
-        Nota: O controle de intensidade não está disponível nesta versão
+        {language === "portuguese"
+          ? "Nota: O controle de intensidade não está disponível nesta versão"
+          : "Note: Intensity control is not available in this version"}
       </Text>
       <Slider
         style={styles.slider}
@@ -25,7 +31,6 @@ export const IntensitySlider: React.FC<IntensitySliderProps> = ({
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
         thumbTintColor="#FFFFFF"
-        disabled={disabled}
       />
     </View>
   );

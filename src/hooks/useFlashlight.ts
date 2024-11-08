@@ -14,7 +14,7 @@ export const useFlashlight = () => {
     if (isStrobeOn) {
       strobeInterval = setInterval(() => {
         setFlashOn((prev) => !prev);
-      }, 100);
+      }, 150);
     } else {
       clearInterval(strobeInterval);
       setFlashOn(false);
