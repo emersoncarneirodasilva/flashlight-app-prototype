@@ -1,53 +1,69 @@
-import { View } from "react-native";
-import { IntensitySlider } from "../components/IntensitySlider";
-import { useFlashlight } from "../hooks/useFlashlight";
-import { FlashlightButton } from "../components/FlashlightButton";
 import { useContext } from "react";
-import { ShakeContext } from "../contexts/ShakeContext";
+import { View } from "react-native";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { useStyles } from "../hooks/useStyles";
 import { LanguageContext } from "../contexts/LanguagesContext";
+import { ShakeContext } from "../contexts/ShakeContext";
+import { useStyles } from "../hooks/useStyles";
+import { StrobeValue } from "../components/StrobeValue";
+import RadialToggle from "../components/RadialToggle";
+import ToggleSwitch from "../components/ToggleSwitch";
 
 export default function Settings() {
   const styles = useStyles();
-  const { intensity, setIntensity } = useFlashlight();
-  const { isShake, setIsShake } = useContext(ShakeContext)!;
-  const { theme, setTheme } = useContext(ThemeContext)!;
   const { language, setLanguage } = useContext(LanguageContext)!;
+  const { theme, setTheme } = useContext(ThemeContext)!;
+  const { isShake, setIsShake } = useContext(ShakeContext)!;
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <IntensitySlider
-          intensity={intensity}
-          onIntensityChange={setIntensity}
-        />
+        {language === "portuguese" ? (
+          <RadialToggle
+            option1={{ label: "Português", value: "portuguese" }}
+            option2={{ label: "Inglês", value: "english" }}
+            setOption={setLanguage}
+            currentValue={language}
+          />
+        ) : (
+          <RadialToggle
+            option1={{ label: "Portuguese", value: "portuguese" }}
+            option2={{ label: "English", value: "english" }}
+            setOption={setLanguage}
+            currentValue={language}
+          />
+        )}
 
-        <FlashlightButton
-          backgroundColor={isShake ? "#a74dc2" : "#b93d81"}
-          text={isShake ? "Desativar Chacoalhar" : "Ativar Chacoalhar"}
-          onPress={() => setIsShake((prev) => !prev)}
-        />
+        {language === "portuguese" ? (
+          <RadialToggle
+            option1={{ label: "Claro", value: "light" }}
+            option2={{ label: "Escuro", value: "dark" }}
+            currentValue={theme}
+            setOption={setTheme}
+          />
+        ) : (
+          <RadialToggle
+            option1={{ label: "Light", value: "light" }}
+            option2={{ label: "Dark", value: "dark" }}
+            currentValue={theme}
+            setOption={setTheme}
+          />
+        )}
 
-        <FlashlightButton
-          backgroundColor={theme === "light" ? "#cbce21" : "#3a3739"}
-          text={theme === "light" ? "Tema Claro" : "Tema Escuro"}
-          onPress={() =>
-            setTheme((currentTheme) =>
-              currentTheme === "light" ? "dark" : "light"
-            )
-          }
-        />
+        {language === "portuguese" ? (
+          <ToggleSwitch
+            label="Chacoalhar"
+            value={isShake}
+            onValueChange={setIsShake}
+          />
+        ) : (
+          <ToggleSwitch
+            label="Shake"
+            value={isShake}
+            onValueChange={setIsShake}
+          />
+        )}
 
-        <FlashlightButton
-          backgroundColor={language === "portuguese" ? "#e2712f" : "#26aeb3"}
-          text={language === "portuguese" ? "Português" : "Inglês"}
-          onPress={() =>
-            setLanguage((currentTheme) =>
-              currentTheme === "portuguese" ? "english" : "portuguese"
-            )
-          }
-        />
+        <StrobeValue />
       </View>
     </View>
   );

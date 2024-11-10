@@ -80,5 +80,69 @@ export const useStyles = () => {
       fontWeight: "bold",
       color: "white",
     },
+    Radialcontainer: {
+      padding: 16,
+    },
+    optionContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginVertical: 8,
+      width: "100%",
+    },
+    outerCircle: {
+      width: 24,
+      height: 24,
+      borderRadius: 12,
+      borderWidth: 2,
+      borderColor: "#888",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    selectedOuterCircle: {
+      borderColor: "#007AFF",
+    },
+    innerCircle: {
+      width: 12,
+      height: 12,
+      borderRadius: 6,
+      backgroundColor: "#007AFF",
+    },
+    optionText: {
+      fontSize: 16,
+      color: `${theme === "light" ? "#1f1f1f" : "#fff"}`,
+    },
+    wrapper: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginVertical: 8,
+      padding: 16,
+      width: "100%",
+    },
+    label: {
+      marginRight: 10,
+      fontSize: 16,
+      color: `${theme === "light" ? "#1f1f1f" : "#fff"}`,
+    },
+    switchContainer: {
+      width: 50,
+      height: 30,
+      borderRadius: 15,
+      padding: 2,
+      justifyContent: "center",
+    },
+    onBackground: {
+      backgroundColor: "#007AFF",
+    },
+    offBackground: {
+      backgroundColor: "#ccc",
+    },
+    circle: {
+      width: 26,
+      height: 26,
+      borderRadius: 13,
+      backgroundColor: "#fff",
+    },
   });
 };
